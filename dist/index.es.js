@@ -1,0 +1,22 @@
+const c = async (n) => {
+  const a = n.split(",").join("&themes="), s = [], t = [];
+  return (await (await fetch(`http://148.206.168.178/vaep/api/v1/question/theme?themes=${a}`)).json()).data.forEach((o) => {
+    o.openQuestions.forEach((e) => {
+      s.push({
+        tipo: "pregunta-respuesta",
+        pregunta: e.question,
+        respuesta: e.answer
+      });
+    }), o.multipleChoiceQuestions.forEach((e) => {
+      t.push({
+        tipo: "opcion-multiple",
+        pregunta: e.question,
+        opciones: e.answers,
+        respuestaCorrecta: e.correctAnswer
+      });
+    });
+  }), [s, t];
+};
+export {
+  c as getQuestions
+};
