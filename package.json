@@ -1,6 +1,6 @@
 {
   "name": "vaep-transition-toolkit",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "dist/index.cjs",
   "module": "dist/index.js",
   "exports": {
