@@ -7,8 +7,27 @@ export const getQuestions = async (themes) => {
     const response = await fetch(`http://148.206.168.178/vaep/api/v1/question/theme?themes=${queryThemes}`)
     const data = await response.json()
 
-    data.data.forEach(theme => {
-        theme.openQuestions.forEach(question => {
+    if ( data.data.length ) {
+        data.data.forEach(theme => {
+            theme.openQuestions.forEach(question => {
+                openQuestions.push({
+                    tipo: 'pregunta-respuesta',
+                    pregunta: question.question,
+                    respuesta: question.answer,
+                })
+            })
+
+            theme.multipleChoiceQuestions.forEach(question => {
+                closedQuestions.push({
+                    tipo: 'opcion-multiple',
+                    pregunta: question.question,
+                    opciones: question.answers,
+                    respuestaCorrecta: question.correctAnswer,
+                })
+            })
+        })
+    } else {
+        data.data.openQuestions.forEach(question => {
             openQuestions.push({
                 tipo: 'pregunta-respuesta',
                 pregunta: question.question,
@@ -16,7 +35,7 @@ export const getQuestions = async (themes) => {
             })
         })
 
-        theme.multipleChoiceQuestions.forEach(question => {
+        data.data.multipleChoiceQuestions.forEach(question => {
             closedQuestions.push({
                 tipo: 'opcion-multiple',
                 pregunta: question.question,
@@ -24,7 +43,7 @@ export const getQuestions = async (themes) => {
                 respuestaCorrecta: question.correctAnswer,
             })
         })
-    })
+    }
 
     return [ openQuestions, closedQuestions ]
 }

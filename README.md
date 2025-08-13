@@ -32,7 +32,7 @@ Por esto, sin remplazar el demás código de la función fetchPreguntasRespuesta
 import { getQuestions } from 'vaep-transition-toolkit'
 // Más código
 const themes = 'MIRA EXPLICACIÓN ABAJO'
-const [ preguntasRespuestas, preguntasOpcionMultiple ] = getQuestions(themes)
+const [ preguntasRespuestas, preguntasOpcionMultiple ] = await getQuestions(themes)
 ```
 
 Los themes vienen como params en la forma
